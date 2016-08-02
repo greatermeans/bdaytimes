@@ -12,10 +12,10 @@ function findTitles(event,birthday) {
         method: 'GET',
     }).done(function(result) {
         var articles = result.response.docs
+        		var news_articles = articles.filter((article) => article.type_of_material === "News")
 				var i = 0
-				var length = articles.length										// closures are very cool
-				var array = [...Array(articles.length).keys()]
-				var news_articles = articles.filter((article) => article.type_of_material === "News")
+				var length = news_articles.length										// closures are very cool
+				var array = [...Array(length).keys()]
 				function myLoop () {
 				   setTimeout(function () {
 				      displayOnDiv(news_articles, array)
