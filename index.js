@@ -1,9 +1,3 @@
-const divIDs = []
-
-    for (var i = 0; i <= 9; i++) {
-        divIDs.push(i);
-    }
-
 function findTitles(event,birthday) {
 	event.preventDefault()
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
@@ -12,40 +6,40 @@ function findTitles(event,birthday) {
         'begin_date': birthday.split('-').join(''),
         'end_date': birthday.split('-').join('')
     });
-    
-	// document.getElementById('query').reset()
+
 	$.ajax({
         url: url,
         method: 'GET',
     }).done(function(result) {
-        displayHeadlines(result.response.docs)
+        var articles = result.response.docs
+				var i = 0
+				var length = articles.length										// closures are very cool
+				var array = [...Array(articles.length).keys()]
+				var news_articles = articles.filter((article) => article.type_of_material === "News")
+				function myLoop () {
+				   setTimeout(function () {
+				      displayOnDiv(news_articles, array)
+				      i++; if (i < length) { myLoop() }
+				   }, ((1000/i)) + 100) 			// this is awesome
+				}
+				myLoop()
     }).fail(function(err) {
         throw err;
     });
 }
 
-function displayHeadlines(articles) {
-    articles.forEach(function (article) {
-        setTimeout(displayOnDiv,5000)
-
-        function displayOnDiv() {
-            let divIndex = parseInt(Math.random() * divIDs.length)
-            let tag = (divIDs.splice(divIndex,1))[0]
-            $(`#${tag}`).append(`${article.headline.main}`)
-        }
-    })
-
-	// const headlineList = `<ul>${articles.map(art => '<li>' +
- //    `<a href="${art.web_url}" target="_blank"
- //    > ${art.headline.main}</a>` + '</li>').join('')}</ul>`
-	// $('#headlines')[0].innerHTML = headlineList
-}
-
-// function displayOnDiv(article) {
-//     let divIndex = parseInt(Math.random() * divIDs.length)
-//     let tag = (divIDs.splice(divIndex,1))[0]
-//     $(`#${tag}`).append(`${article.headline.main}`)
+// function displayHeadlines(articles) {
+// 	const headlineList = `<ul>${articles.map(art => '<li>' +
+//     `<a href="${art.web_url}" target="_blank"
+//     > ${art.headline.main}</a>` + '</li>').join('')}</ul>`
+// 	$('#headlines')[0].innerHTML = headlineList
 // }
 
+function displayOnDiv(articles, array) {
+	var arrayIndex = parseInt(array.length*Math.random())
+	var tag = array.splice(arrayIndex, 1)[0]
+	$(`#${tag}`).append(`${articles.splice(0,1)[0].headline.main}`)
+}
 
-
+// take out repeats
+// can we dynamically generate divs based on number of articles?

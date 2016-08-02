@@ -1,51 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="lib/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="stylesheet.css">
       <script src="jquery-1.11.3.js"></script>
+      <script src="article.js"></script>
       <script src="index.js"></script>
-    
-    
-    <title>The Birthday Times</title>
-    <style>
-       .flexbox-container {
-         display: -ms-flex;
-         display: -webkit-flex;
-         display: flex;
-       }
-
-      .flexbox-container > div {
-        width: 50%;
-        padding: 10px;
-      }
-
-      .flexbox-container > div:first-child {
-        margin-right: 20px;
-      }
-    </style>
-    </head>
-    <body>
+      <title>The Birthday Times</title>
+  </head>
+  <body>
     <main id="main">
-    <br>
-    <br>
-    <form id="query" onsubmit="findTitles(event,this.birthday.value)">
-      <label for="search"> Enter Your Birthday: <input type="date" id="birthday" name="birthdate"></label>
-      <input type="submit" value="Search">
-    </form>
     </main>
+    <div>
+      <form id="query" class = 'dp' onsubmit="findTitles(event,this.birthday.value)">
+        <label for="search"> Enter Your Birthday: <input type="date" id="birthday" name="birthdate"></label>
+        <input type="submit" value="Search">
+      </form>
+    </div>
     <div class="flexbox-container">
       <div>
-        <h3>Headlines</h3>
-        <div id="headlines">
-          <div id="0"></div>
-          <div id="1"></div>
-          <div id="2"></div>
-          <div id="3"></div>
-          <div id="4"></div>
-          <div id="5"></div>
-          <div id="6"></div>
-          <div id="7"></div>
-          <div id="8"></div>
-          <div id="9"></div>
+        <h3 class = 'dp text-center' >Headlines</h3>
+        <div class = 'container'>
+          <div id= "headlines">
+            <div class = 'row'>
+              <div class = 'col-md-12 img'>
+                <img src = "images/lol.jpg"></img>
+              </div>
+            </div>
+            <div class = 'row'>
+              <div class = 'col-md-4' id="0"></div>
+              <div class = 'col-md-4' id="1"></div>
+              <div class = 'col-md-4' id="2"></div>
+            </div>
+            <div class = 'row'>
+              <div class = 'col-md-4' id="3"></div>
+              <div class = 'col-md-4' id="4"></div>
+              <div class = 'col-md-4' id="5"></div>
+            </div>
+            <div class = 'row'>
+              <div class = 'col-md-4' id="6"></div>
+              <div class = 'col-md-4' id="7"></div>
+              <div class = 'col-md-4' id="8"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
