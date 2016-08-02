@@ -1,3 +1,9 @@
+const divIDs = []
+
+    for (var i = 0; i <= 9; i++) {
+        divIDs.push(i);
+    }
+
 function findTitles(event,birthday) {
 	event.preventDefault()
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
@@ -7,7 +13,6 @@ function findTitles(event,birthday) {
         'end_date': birthday.split('-').join('')
     });
     
-    debugger
 	// document.getElementById('query').reset()
 	$.ajax({
         url: url,
@@ -20,11 +25,27 @@ function findTitles(event,birthday) {
 }
 
 function displayHeadlines(articles) {
-	const headlineList = `<ul>${articles.map(art => '<li>' +
-    `<a href="${art.web_url}" target="_blank"
-    > ${art.headline.main}</a>` + '</li>').join('')}</ul>`
-	$('#headlines')[0].innerHTML = headlineList
+    articles.forEach(function (article) {
+        setTimeout(displayOnDiv,5000)
+
+        function displayOnDiv() {
+            let divIndex = parseInt(Math.random() * divIDs.length)
+            let tag = (divIDs.splice(divIndex,1))[0]
+            $(`#${tag}`).append(`${article.headline.main}`)
+        }
+    })
+
+	// const headlineList = `<ul>${articles.map(art => '<li>' +
+ //    `<a href="${art.web_url}" target="_blank"
+ //    > ${art.headline.main}</a>` + '</li>').join('')}</ul>`
+	// $('#headlines')[0].innerHTML = headlineList
 }
+
+// function displayOnDiv(article) {
+//     let divIndex = parseInt(Math.random() * divIDs.length)
+//     let tag = (divIDs.splice(divIndex,1))[0]
+//     $(`#${tag}`).append(`${article.headline.main}`)
+// }
 
 
 
